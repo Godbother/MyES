@@ -1,0 +1,17 @@
+put users/_mapping/user
+{
+  "properties": {
+        "username": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "age": {
+          "type": "integer"
+        },
+        "create_at": {
+          "type": "long"
+        }
+      }
+}
