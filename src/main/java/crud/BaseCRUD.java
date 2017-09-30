@@ -3,6 +3,7 @@ package crud;
 import client.MyESClient;
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequestBuilder;
 import org.elasticsearch.action.admin.indices.create.CreateIndexResponse;
+import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.xcontent.XContentBuilder;
@@ -26,7 +27,7 @@ public class BaseCRUD {
         client.admin().indices().preparePutMapping(indexname)
                 .setType(typename).setSource(mapping).get();
     }
-    //处理mapping内容
+    //处理mapping内容(index)
     public static XContentBuilder getXcontent(String typename, List<Map<String,String>> fields){
         if (fields == null){
             return null;
@@ -53,5 +54,30 @@ public class BaseCRUD {
             return null;
         }
 
+    }
+    //处理document内容(doc)
+    public static String getJson(String typename, Map<String,String> fields){
+        String json = "{";
+        int i = 0;
+        for (Map.Entry entry:fields.entrySet()) {
+            if (i<fields.entrySet().size()-1){
+                json+="\"" + entry.getKey()  +"\":\"" + entry.getValue() +"\",";
+            }else{
+                json+="\"" + entry.getKey()  +"\":\"" + entry.getValue() +"\"";
+            }
+        }
+        json+= "}";
+        return json;
+
+    }
+    //创建新文档
+    public static String indexDoc(String indexname,String typename,Map<String,Object> field){
+        IndexResponse response = client.prepareIndex(indexname,typename)
+                .setSource(field).get();
+        if (response.getId()!=null){
+            return response.getId();
+        }else{
+            return null;
+        }
     }
 }

@@ -29,11 +29,23 @@ public class TestMysearch {
         List<Map<String,String>> result = new LinkedList<Map<String, String>>();
         result.add(fields);
         try{
-            BaseCRUD.createIndices(typename,indexname,result,3,1);
+            BaseCRUD.createIndices(typename,indexname,result,null,null);
         }catch (Exception e){
             e.printStackTrace();
             System.out.println();
         }
 
+    }
+
+    @Test
+    public void testToCreateDoc() {
+        Map<String,Object> map = new HashMap<String,Object>();
+        map.put("create_at",new Date().getTime());
+        map.put("create_at_time",new Date());
+        map.put("message","just hava a try");
+        map.put("test11","testautoincreate");
+        String indexname = "tests";
+        String typename = "test";
+        System.out.println(BaseCRUD.indexDoc(indexname,typename,map));
     }
 }
