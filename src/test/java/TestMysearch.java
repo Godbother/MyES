@@ -29,9 +29,10 @@ public class TestMysearch {
         List<Map<String,String>> result = new LinkedList<Map<String, String>>();
         result.add(fields);
         try{
-            System.out.println(BaseCRUD.createIndices(typename,indexname,result));
+            BaseCRUD.createIndices(typename,indexname,result,3,1);
         }catch (Exception e){
             e.printStackTrace();
+            System.out.println();
         }
 
     }
