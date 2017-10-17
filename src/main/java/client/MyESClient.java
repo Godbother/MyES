@@ -4,11 +4,9 @@ import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.network.InetAddresses;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
-import org.elasticsearch.node.Node;
 import org.elasticsearch.node.Node.*;
 import org.elasticsearch.transport.client.PreBuiltTransportClient;
 
-import java.net.InetAddress;
 import java.util.List;
 import java.util.Map;
 
